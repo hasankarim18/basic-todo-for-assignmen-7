@@ -4,11 +4,11 @@ import { FaTimesCircle, FaRegCheckCircle, FaTrash } from "react-icons/fa";
 import { TodoContext } from "../../Context/TodoContextWrapper";
 const Todo = ({todo}) => {
     
-    const {toggleStatus} = useContext(TodoContext)
+    const { toggleStatus, deleteTodo } = useContext(TodoContext);
 
 
     return (
-      <div className="flex justify-between  w-full">
+      <li className="flex border p-2 rounded-md justify-between  w-full">
         <div className="text-xl flex items-center h-full">
           <strong className="inline-block mr-2">{todo.id}. </strong>
           <p className={`${todo.status ? 'line-through': ''}`}> {todo.todo}</p>
@@ -38,11 +38,11 @@ const Todo = ({todo}) => {
               );
             }
           })()}
-          <button className="bg-red-400 p-2 rounded-md" >
+          <button onClick={()=> {deleteTodo(todo.id)}} className="bg-red-400 p-2 rounded-md" >
             <FaTrash className="hover:text-white" />
           </button>
         </div>
-      </div>
+      </li>
     );
 };
 

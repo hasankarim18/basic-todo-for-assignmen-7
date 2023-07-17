@@ -15,7 +15,7 @@ const AddTodo = () => {
         form.reset()
     }
     return (
-      <div className="m-4">
+      <div className=" pt-4">
         <h3 className="text-3xl text-center">Add Todo</h3>
         <form onSubmit={onSubmit}>
           <input 

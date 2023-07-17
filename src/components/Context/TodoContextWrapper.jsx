@@ -4,8 +4,8 @@ export const TodoContext = createContext();
 
 const TodoContextWrapper = ({ children }) => {
     const [todos, setTodos] = useState([
-        {id:1, todo:"Make todo app", status:false}, 
-        {id:2, todo:"Use Context api", status:true}, 
+        // {id:1, todo:"Make todo app", status:false}, 
+        // {id:2, todo:"Use Context api", status:true}, 
     ])
     
 
@@ -14,7 +14,7 @@ const TodoContextWrapper = ({ children }) => {
         if(todos.length === 0){    
            newTodo.id = 1;
         }else {
-          console.log("todo exists");
+          
           const lastTodo = todos[todos.length - 1];
           const newTodoid = lastTodo.id + 1;
           newTodo.id = newTodoid;         
@@ -27,8 +27,7 @@ const TodoContextWrapper = ({ children }) => {
         })
     }
 
-    const toggleStatus = (id)=> {
-      console.log(id);
+    const toggleStatus = (id)=> {    
       setTodos((prevTodos) => {
       return  prevTodos.map((item) => {
           if (item.id === id) {
@@ -44,6 +43,12 @@ const TodoContextWrapper = ({ children }) => {
 
     }
 
+    const deleteTodo = (id)=> {
+      setTodos((prevTodos)=> {
+        return prevTodos.filter(item => item.id !== id)
+      })
+    }
+
    
 
     const initialState = {
@@ -51,6 +56,7 @@ const TodoContextWrapper = ({ children }) => {
       setTodos: setTodos,
       addTodos: addTodos,
       toggleStatus: toggleStatus,
+      deleteTodo
     };
     return (
       <TodoContext.Provider value={initialState}>

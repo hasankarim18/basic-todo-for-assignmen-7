@@ -11,7 +11,7 @@ function App() {
     <>
       <div className="container mx-auto">
         <Header />  
-          <div>
+          <div  className="min-h-[calc(100vh-100px)]" >
             <Layout />
           </div>
         <Footer />
