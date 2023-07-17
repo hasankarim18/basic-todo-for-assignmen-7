@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 export const TodoContext = createContext();
 
@@ -13,41 +13,54 @@ const TodoContextWrapper = ({ children }) => {
         const newTodo = { todo, status };  
         if(todos.length === 0){    
            newTodo.id = 1;
-        }else {
-          
+        }else {          
           const lastTodo = todos[todos.length - 1];
           const newTodoid = lastTodo.id + 1;
           newTodo.id = newTodoid;         
         }       
-        setTodos((prev)=> {
-            return [
-                ...prev, 
-                newTodo
-            ]
+        setTodos((prev)=> {   
+          const updatedTodos = [...prev, newTodo]     
+          localStorage.setItem('react_todos', JSON.stringify(updatedTodos))
+            return updatedTodos
         })
     }
 
     const toggleStatus = (id)=> {    
       setTodos((prevTodos) => {
-      return  prevTodos.map((item) => {
+      const updatedTodos =  prevTodos.map((item) => {
           if (item.id === id) {
-            return {
-              ...item,
-              status: !item.status,
-            };
+            const updatedTodo = {...item, status: !item.status}          
+            return updatedTodo
           } else {
             return item;
           }
         });
-      });
 
+        localStorage.setItem('react_todos', JSON.stringify(updatedTodos))
+        return updatedTodos
+      });
     }
 
     const deleteTodo = (id)=> {
       setTodos((prevTodos)=> {
-        return prevTodos.filter(item => item.id !== id)
+        const updatedTodos = prevTodos.filter((item) => item.id !== id);
+         localStorage.setItem("react_todos", JSON.stringify(updatedTodos));
+        return updatedTodos;
       })
     }
+
+    useEffect(() => {
+      const savedTodos = JSON.parse(localStorage.getItem('react_todos'))
+      console.log(savedTodos);
+
+      if(!savedTodos){
+        setTodos([])
+      }else {
+        setTodos(savedTodos)
+      }
+    
+    }, [])
+    
 
    
 

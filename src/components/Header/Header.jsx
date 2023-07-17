@@ -8,7 +8,7 @@ const Header = () => {
     
     return (
         <div style={{height:"50px"}} className="bg-black text-white text-3xl flex items-center justify-center">
-            Header
+            React Todo App
         </div>
     );
 };

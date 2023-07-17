@@ -4,9 +4,7 @@ import Todo from "./Todo";
 
 const Todos = () => {
 
-    const {todos} = useContext(TodoContext)
-
-  
+    const {todos} = useContext(TodoContext)  
 
     return (
       <div>
