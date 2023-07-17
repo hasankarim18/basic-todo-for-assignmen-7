@@ -1,27 +1,48 @@
 
-
+import { useContext } from "react";
+import { FaTimesCircle, FaRegCheckCircle, FaTrash } from "react-icons/fa";
+import { TodoContext } from "../../Context/TodoContextWrapper";
 const Todo = ({todo}) => {
-  
+    
+    const {toggleStatus} = useContext(TodoContext)
+
+
     return (
-        <div className="flex justify-between  w-full">
-            <div className="text-xl flex items-center h-full">
-                <strong className="inline-block mr-2">{todo.id}. </strong>
-                {todo.todo}
-            </div>
-            <div>
-                {(()=> {
-                    if (todo.status) {
-                     return <button className="bg-green-400 p-2 rounded-md">
-                        Completed
-                      </button>;
-                    } else {
-                     return <button className="bg-red-400 p-2 rounded-md">
-                        Incomplete
-                      </button>;
-                    }
-                })()}
-            </div>
+      <div className="flex justify-between  w-full">
+        <div className="text-xl flex items-center h-full">
+          <strong className="inline-block mr-2">{todo.id}. </strong>
+          <p className={`${todo.status ? 'line-through': ''}`}> {todo.todo}</p>
         </div>
+        <div className="flex gap-4">
+          {(() => {
+            if (todo.status) {
+              return (
+                <button 
+                onClick={()=> {toggleStatus(todo.id)}}
+                 className="bg-yellow-400 tooltip relative p-2 rounded-md">
+                  <FaTimesCircle />
+                  <span className="">Mark as Incomplete </span>
+                </button>
+              );
+            } else {
+              return (
+                <button 
+                onClick={()=> {toggleStatus(todo.id)}}
+
+                  title="Make  Incomplete"
+                  className="bg-green-400 tooltip p-2 relative rounded-md"
+                >
+                  <FaRegCheckCircle />
+                  <span className=" ">Mark as Complete</span>
+                </button>
+              );
+            }
+          })()}
+          <button className="bg-red-400 p-2 rounded-md" >
+            <FaTrash className="hover:text-white" />
+          </button>
+        </div>
+      </div>
     );
 };
 

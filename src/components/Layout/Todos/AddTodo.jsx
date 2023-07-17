@@ -13,7 +13,6 @@ const AddTodo = () => {
    //     console.log(todoObj);
         addTodos(todoObj);
         form.reset()
-
     }
     return (
       <div className="m-4">
